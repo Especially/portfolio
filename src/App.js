@@ -21,9 +21,13 @@ function App() {
       </div>
       <main className="container">
       <section className="container__section">
-          <h1>About</h1>
-          <div className="">
-
+          <h1>About Me</h1>
+          <div className="content-holder">
+            <img src={} alt="Josh Walters" />
+            <div classNAme="content-holder__">
+              
+            </div>
+            <p>I've blah blah blah blah blah blah blah blah blah</p>
           </div>
         </section>
         <section className="section accordion">
