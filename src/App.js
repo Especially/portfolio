@@ -1,4 +1,6 @@
 import React from 'react';
+import About from './components/About/About';
+import Projects from './components/Projects/Projects';
 // import Section from './components/Section/Section';
 
 function App() {
@@ -20,82 +22,9 @@ function App() {
         </div>
       </div>
       <main className="container">
-      <section className="container__section">
-          <h1>About Me</h1>
-          <div className="content-holder">
-            <img src={} alt="Josh Walters" />
-            <div classNAme="content-holder__">
-              
-            </div>
-            <p>I've blah blah blah blah blah blah blah blah blah</p>
-          </div>
-        </section>
-        <section className="section accordion">
-          <h1>Projects</h1>
-          <div className="accordion__block">
-            <h2>Project Name</h2>
-          </div>
-          <div className="accordion__block accordion__block--collapsed">
-            <h2>Project Name</h2>
-          </div>
-        </section>
+        <About />
+        <Projects />
       </main>
-      <article>
-        <section className="section">
-          <h1>About</h1>
-        </section>
-        <section className="section accordion">
-          <h1>Projects</h1>
-          <div className="accordion__block">
-            <h2>Project Name</h2>
-          </div>
-          <div className="accordion__block accordion__block--collapsed">
-            <h2>Project Name</h2>
-          </div>
-        </section>
-      </article>
-      <article>
-        <section className="section">
-          <h1>About</h1>
-        </section>
-        <section className="section accordion">
-          <h1>Projects</h1>
-          <div className="accordion__block">
-            <h2>Project Name</h2>
-          </div>
-          <div className="accordion__block accordion__block--collapsed">
-            <h2>Project Name</h2>
-          </div>
-        </section>
-      </article>
-      <article>
-        <section className="section">
-          <h1>About</h1>
-        </section>
-        <section className="section accordion">
-          <h1>Projects</h1>
-          <div className="accordion__block">
-            <h2>Project Name</h2>
-          </div>
-          <div className="accordion__block accordion__block--collapsed">
-            <h2>Project Name</h2>
-          </div>
-        </section>
-      </article>
-      <article>
-        <section className="section">
-          <h1>About</h1>
-        </section>
-        <section className="section accordion">
-          <h1>Projects</h1>
-          <div className="accordion__block">
-            <h2>Project Name</h2>
-          </div>
-          <div className="accordion__block accordion__block--collapsed">
-            <h2>Project Name</h2>
-          </div>
-        </section>
-      </article>
     </>
   );
 }
