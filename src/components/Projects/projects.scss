@@ -1,4 +1,4 @@
-@import '../../partials/animations';
+@import '../../partials/animations', '../../partials/variables';
 .accordion {
 
     &__head {
@@ -7,6 +7,7 @@
         align-items: center;
         padding: 0.5rem 1.25rem;
         cursor: pointer;
+        border-bottom: 1px solid $primary-lt;
 
         &:hover {
             & .accordion__icon:not(.accordion__icon--active) {
@@ -29,6 +30,35 @@
         transition: all ease-in-out 0.5s;
         &--active {
             transform: rotate(0deg);
+        }
+    }
+
+    &__content {
+        display: none;
+        overflow: hidden;
+        padding: 0.5rem 1.25rem;
+        height: 100%;
+        transition: all ease-in-out 0.5s;
+
+        .accordion__container--active & {
+            display: flex;
+            flex-direction: column;
+            // height: 100%;
+        }
+    }
+}
+
+.stack {
+    display: flex;
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem;
+        align-items: center;
+
+        &__icon {
+            width: 3rem;
         }
     }
 }

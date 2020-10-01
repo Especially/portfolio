@@ -7,7 +7,8 @@ const Projects = () => {
     const [activeProject, setActiveProject] = useState(null); // Project ID passed here, during map (ProjectData.id === activeProject)
 
     const currentProject = (id) => {
-        setActiveProject(id);
+        // If we're clicking on the same active project, set to null to collapse all 
+        (activeProject !== id) ? setActiveProject(id) : setActiveProject(null);
     }
 
     let projects = projectData.map(project => <ProjectItem key={project.id} clickHandler={currentProject} data={project} active={project.id === activeProject} />)

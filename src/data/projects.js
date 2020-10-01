@@ -6,8 +6,8 @@ module.exports = [
         "image": [],
         "status": 1,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
-        "stack": ["React.js","NodeJS","Express","Firebase Database"],
-        "highlights": ["React.js","NodeJS","Express","Firebase Database"],
+        "stack": ["React","NodeJS","Express","Firebase"],
+        "highlights": ["React","Node","Express","Firebase"],
         "duration":"2 Weeks",
         "link":"https://amuze-me.herokuapp.com/",
         "video":""
@@ -18,7 +18,7 @@ module.exports = [
         "image": [],
         "status": 0,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
-        "stack": ["PHP","Redis","MySQL","HTML","JavaScript"],
+        "stack": ["Linux","Apache","MySQL","PHP","Redis"],
         "duration":"2016-2018",
         "link":"http://blockr.ca/",
         "video":""
@@ -30,6 +30,8 @@ module.exports = [
         "status": 1,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
         "stack": ["PHP","MySQL","HTML","JavaScript"],
-        "duration":"2016-2018"
+        "duration":"2016-2018",
+        "link":"",
+        "video":""
     }
 ]
