@@ -1,13 +1,16 @@
-const { v4: uuid_v4 } = require('uuid');
-module.exports = [
+import { v4 as uuid_v4 } from  'uuid';
+import {amuzeMeImg1} from '../assets/images/projects/amuze_me.png'
+import {blockrImg1} from '../assets/images/projects/blockr.png';
+import {staffingPanelImg1} from '../assets/images/projects/staffing_panel.png';
+
+const projectData = [
     {
         "id": uuid_v4(),
         "title": "Amuze Me",
-        "image": [],
+        "image": [amuzeMeImg1],
         "status": 1,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
         "stack": ["React","NodeJS","Express","Firebase"],
-        "highlights": ["React","Node","Express","Firebase"],
         "duration":"2 Weeks",
         "link":"https://amuze-me.herokuapp.com/",
         "video":""
@@ -15,7 +18,7 @@ module.exports = [
     {
         "id": uuid_v4(),
         "title": "Blockr",
-        "image": [],
+        "image": [blockrImg1],
         "status": 0,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
         "stack": ["Linux","Apache","MySQL","PHP","Redis"],
@@ -26,7 +29,7 @@ module.exports = [
     {
         "id": uuid_v4(),
         "title": "Staffing Panel",
-        "image": [],
+        "image": [staffingPanelImg1],
         "status": 1,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
         "stack": ["PHP","MySQL","HTML","JavaScript"],
@@ -35,3 +38,5 @@ module.exports = [
         "video":""
     }
 ]
+
+export default projectData;
