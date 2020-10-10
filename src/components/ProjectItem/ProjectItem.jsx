@@ -67,6 +67,7 @@ const ProjectItem = ({ clickHandler, data, active }) => {
                 className="accordion__holder"
             >
                 <div className="accordion__content" {...bind}>
+                    <img src={data.image[0]} alt={data.title} />
                     <p>{data.desc}</p>
 
                     <span>{data.duration}</span>

@@ -1,13 +1,13 @@
 import { v4 as uuid_v4 } from  'uuid';
-import {amuzeMeImg1} from '../assets/images/projects/amuze_me.png'
-import {blockrImg1} from '../assets/images/projects/blockr.png';
-import {staffingPanelImg1} from '../assets/images/projects/staffing_panel.png';
+const amuzeMeImg1 = require('../assets/images/projects/amuze_me.png');
+const blockrImg1 = require('../assets/images/projects/blockr.png');
+const staffingPanelImg1 = require('../assets/images/projects/staffing_panel.png');
 
 const projectData = [
     {
         "id": uuid_v4(),
         "title": "Amuze Me",
-        "image": [amuzeMeImg1],
+        "image": [amuzeMeImg1, 'hey'],
         "status": 1,
         "desc": "Amuze Me is a SPA which utilizes Microsoft's Face AI and IBM Watson's Tone Analyzer to obtain a user's mood. Once the mood is obtained, a unique playlist is generated for the user depending on their mood and the previous songs that they've listened to through Spotify.",
         "stack": ["React","NodeJS","Express","Firebase"],

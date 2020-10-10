@@ -51,6 +51,12 @@
     }
 }
 
+.carosel {
+    &__holder {
+        display: flex;
+    }
+}
+
 .stack {
     display: flex;
     overflow: hidden;
