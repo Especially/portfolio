@@ -1,21 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import StackItem from '../StackItem/StackItem';
-import { animated, useSpring } from 'react-spring';
-import { useMeasure } from '../Helpers';
+import React, { useState, useEffect } from 'react';
+import Carousel from './Carousel';
+import CarouselItem from '../CarouselItem/CarouselItem';
 
-const ProjectCarosel = ({ clickHandler, data, active }) => {
+
+
+
+// Create item component
+const ProjectCarosel = ({ data, current, clickHandler }) => {
+    const [activeIndex, setActiveIndex] = useState((current -1));
+// sort data
+
+    useEffect(() => {
+        setActiveIndex(current -1);
+    }, [current])
 
     return (
 
-        <section className='carosel_container'>
-            <animated.div
-                style={{
-                }}
-                className="carosel_holder"
-            >
-
-            </animated.div>
-        </section>
+        <div className='carosel__container'>
+            <Carousel items={data} activeHandler={clickHandler} current={current}>
+                {({ image }, i) => (
+                    <CarouselItem data={data[i]} active={(activeIndex === i)} />
+                )}
+            </Carousel>
+        </div>
     );
 }
 

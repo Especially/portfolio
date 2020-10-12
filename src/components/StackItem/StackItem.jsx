@@ -17,6 +17,7 @@ const StackItem = ({ type, active }) => {
     let noImage = ['express'];
     const [stack, setStack] = useState([type]);
     let check = noImage.indexOf(type.toLowerCase());
+    // https://aleclarson.github.io/react-spring/v9/breaking-changes/#Transition-objects
     const transition = useTransition(stack, null, {
         from: { transform: 'translate3d(-50px,-50px,0px)' },
         enter: { transform: 'translate3d(0px,0px,0px)' },

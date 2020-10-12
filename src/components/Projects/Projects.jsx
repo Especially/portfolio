@@ -5,25 +5,39 @@ import ProjectCarosel from '../ProjectCarosel/ProjectCarosel';
 import './projects.scss';
 
 const Projects = () => {
-    const [activeProject, setActiveProject] = useState(null); // Project ID passed here, during map (ProjectData.id === activeProject)
+    const [activeIndex, setActiveIndex] = useState(0); // Project index passed here, during map (ProjectData.id === activeIndex)
     const [projectsState, setProjectsState] = useState(projectData);
 
-    const currentProject = (id) => {
+    const currentIndex = (i) => {
         // If we're clicking on the same active project, set to null to collapse all 
-        (activeProject !== id) ? setActiveProject(id) : setActiveProject(null);
+        (activeIndex !== i) && setActiveIndex(i);
+        console.log('Current active project index', i)
+    }
+    
+    const activeViewHandler = (item) => {
+        setActiveIndex(item);
     }
 
-    let projectList = projectsState.map(project => <ProjectItem key={project.id} clickHandler={currentProject} data={project} active={project.id === activeProject} />)
+    const nextProjectHandler = (curr) => {
+        let total= projectsState.length;
+        // If our current + 1 is less than all projects, set active index to it, otherwise, reset to 0
+        let next = (curr + 1 < total) ? curr + 1 : 0;
+        setActiveIndex(next);
+    }
+
+    let projectList = projectsState.map((project, i) => <ProjectItem key={project.id} nextHandler={nextProjectHandler} clickHandler={currentIndex} data={project} index={i} active={i === activeIndex} />)
 
     return (
         <section className="carosel">
             <h1>Projects</h1>
             {/* Projects item will determine the currently active project logic */}
             <div className="carosel__holder">
-                {projectList}
-                <ProjectCarosel data={projectsState} />
+                <ul className="carosel__menu">
+                    {projectList}
+                </ul>
+                <ProjectCarosel data={projectsState} current={activeIndex} clickHandler={activeViewHandler} />
             </div>
-            {/* Project Viewer Component which gets the data from activeProject state */}
+            {/* Project Viewer Component which gets the data from activeIndex state */}
         </section>
     )
 }
