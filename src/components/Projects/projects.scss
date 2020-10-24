@@ -1,4 +1,4 @@
-@import '../../partials/animations', '../../partials/variables';
+@import '../../partials/animations', '../../partials/variables', '../../partials/mixins';
 .accordion {
 
     &__head {
@@ -75,13 +75,19 @@
     }
 }
 
-.carosel {
+.carousel {
+    @include margins;
+
     &__holder {
         display: flex;
+        height: 500px;
     }
 
     &__menu {
         list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #5175966e;
 
         // &-item {
 
@@ -95,11 +101,15 @@
 
     &__item {
 
-        &-content {
+        &-holder {
             position: absolute;
-            bottom: 0;
+            height: 100%;
             color: $primary-lt;
             z-index: 1;
+            padding: 0.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         &-image {

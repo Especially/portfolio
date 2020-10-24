@@ -6,17 +6,17 @@ import CarouselItem from '../CarouselItem/CarouselItem';
 
 
 // Create item component
-const ProjectCarosel = ({ data, current, clickHandler }) => {
+const ProjectCarousel = ({ data, current, clickHandler, pauseHandler }) => {
     const [activeIndex, setActiveIndex] = useState((current -1));
 // sort data
 
     useEffect(() => {
-        setActiveIndex(current -1);
+        setActiveIndex(current);
     }, [current])
 
     return (
 
-        <div className='carosel__container'>
+        <div className='carousel__container'  onMouseEnter={() => pauseHandler(true)}  onMouseLeave={() => pauseHandler(false)}  >
             <Carousel items={data} activeHandler={clickHandler} current={current}>
                 {({ image }, i) => (
                     <CarouselItem data={data[i]} active={(activeIndex === i)} />
@@ -26,4 +26,4 @@ const ProjectCarosel = ({ data, current, clickHandler }) => {
     );
 }
 
-export default ProjectCarosel;
+export default ProjectCarousel;

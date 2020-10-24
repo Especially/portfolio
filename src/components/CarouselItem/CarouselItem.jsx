@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import StackItem from '../StackItem/StackItem';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
-import { a } from 'react-spring';
+import { a, useTransition } from 'react-spring';
+import Timestamp from '../Timestamp/Timestamp';
 
 const Content = styled.div`
   width: 100%;
@@ -12,14 +14,23 @@ const Image = styled(a.div)`
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center center;
+  background-position: top;
+  background-image: url(${(props) => props.url ? `${props.url}` : ''});
+  filter: blur(${(props) => props.light === 'true' ? '2px' : '5px'});
+  &:before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: #00000087;
+  }
 `
 
 // Create item component
 const CarouselItem = ({ data, active }) => {
     const [activeState, setActiveState] = useState(active);
-    const { id, title, image, status, desc, stack, duration, link, video } = data;
-    // sort data
+    const { id, title, image, status, desc, stack, start, end, link, video } = data;
+
     let stackItems = stack.map((item) => <StackItem key={uuid()} type={item} active={activeState} />);
 
 
@@ -28,22 +39,26 @@ const CarouselItem = ({ data, active }) => {
     }, [active])
 
     return (
-        <Content className='carosel__item-container'>
-            <div className={'carosel__item-content'}>
-                <h1>{title}</h1>
+        <Link to={`/project/${id}`}>
+            <Content className='carousel__item-container'>
+                <div className={'carousel__item-holder'}>
+                    <h1>{title}</h1>
+                    <div className='carousel__item-content'>
+                        <p>{desc}</p>
 
-                <p>{desc}</p>
+                        <span><Timestamp options={{ type: 'duration', case: 'title' }} start={start} end={end} /></span>
 
-                <span>{duration}</span>
+                        <div className="stack">
 
-                <div className="stack">
+                            {stackItems}
 
-                    {/* {activeState && stackItems} */}
-
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <Image style={{ backgroundImage: `url(${image[0]})` }} className={'carosel__item-image'} />
-        </Content>
+                {/* className={'carousel__item-image'} */}
+                <Image style={{ backgroundImage: `url(${image[0]})` }} url={image[0]} light={(title === 'Blockr').toString()} />
+            </Content>
+        </Link>
     );
 }
 

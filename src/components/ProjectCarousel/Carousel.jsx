@@ -1,7 +1,8 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react'
 import { useDrag } from 'react-use-gesture'
-import { useSprings, a, useSpring } from 'react-spring'
+import { useSprings, a } from 'react-spring'
 import debounce from 'lodash.debounce'
+import { useMeasure } from '../Helpers'
 
 const styles = {
   container: { display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', height: '100%', width: '100%' },
@@ -48,19 +49,13 @@ const styles = {
 }
 
 export default function SliderContainer(props) {
-  const [width, setWidth] = useState(0)
-
-  const measuredRef = useCallback((node) => {
-    if (node !== null) {
-      setWidth(node.getBoundingClientRect().width)
-    }
-  }, [])
+  const [bind, { width: elWidth }] = useMeasure();
 
   return (
     <>
-      <div ref={measuredRef} style={{ height: '100%', position: 'relative' }} className='carosel__holder'>
-        {width !== 0 ? (
-          <Slider {...props} itemWidth={width}>
+      <div {...bind} style={{ height: '100%', position: 'relative' }} className='carousel__holder'>
+        {elWidth !== 0 ? (
+          <Slider {...props} itemWidth={elWidth}>
             {props.children}
           </Slider>
         ) : (
@@ -82,7 +77,7 @@ export default function SliderContainer(props) {
  * @param {boolean} showButtons - shows buttons
  * @param {boolean} showCounter - shows counter
  */
-function Slider({ items, itemWidth = 'full', visible = items.length - 2, style, children, showButtons = true, showCounter = true, activeHandler, current }) {
+function Slider({ items, itemWidth = 'full', visible = items.length - 2, style, children, showCounter = false, activeHandler, current }) {
   if (items.length <= 2)
     console.warn("The slider doesn't handle two or less items very well, please use it with an array of at least 3 items in length")
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
@@ -106,6 +101,13 @@ function Slider({ items, itemWidth = 'full', visible = items.length - 2, style, 
     debounceTransition(current - index.current);
   }, [current])
   
+  useEffect(() => {
+    // Re-run spring on resize (change in item width)
+    runSprings(0, index.current, true, -0, () => {}, -0)
+
+  }, [itemWidth])
+
+
   const runSprings = useCallback(
     (y, vy, down, xDir, cancel, xMove) => {
       // This decides if we move over to the next slide or back to the initial
@@ -156,56 +158,16 @@ function Slider({ items, itemWidth = 'full', visible = items.length - 2, style, 
 
   return (
     <>
-      {showButtons ? (
-        <div style={{ ...styles.buttonsContainer }} className='carosel__buttons'>
-          <button style={{ ...styles.prevButton }} onClick={() => debounceTransition(-1)}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          <button style={{ ...styles.nextButton }} onClick={() => debounceTransition(1)}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" />
-            </svg>
-          </button>
-        </div>
-      ) : null}
-      <div {...bind()} style={{ ...style, ...styles.container }} className='carosel__content'>
+      <div {...bind()} style={{ ...style, ...styles.container }} className='carousel__content'>
         {springs.map(({ x, vel }, i) => (
           <a.div 
             key={i} 
             style={{ ...styles.item, width, transform: x.to(x => `translate3d(${x}px, 0px, 0px)`) }} 
             children={children(items[i], i)}
-            className='carosel__item'
+            className='carousel__item'
            />
         ))}
       </div>
-      {showCounter ? <InstaCounter currentIndex={active} data={items} /> : null}
     </>
   )
-}
-
-function InstaCounter({ currentIndex, data }) {
-  const dots = []
-
-  for (const [index] of data.entries()) {
-    dots.push(<Dot key={index} active={currentIndex - 1 === index} />)
-  }
-  return (
-    <div style={{ ...styles.navigation }}>
-      <div style={{ ...styles.dotcontainer }}>{dots}</div>
-    </div>
-  )
-}
-
-function Dot({ active }) {
-  const { transform, opacity } = useSpring({
-    opacity: active ? 1 : 0.8,
-    transform: active ? `scale(1.5)` : `scale(1)`,
-    config: { mass: 5, tension: 500, friction: 80 }
-  })
-  return <a.div style={{ opacity: opacity.to((o) => o), transform, ...styles.dot }} />
 }

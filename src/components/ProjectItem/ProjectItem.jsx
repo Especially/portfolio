@@ -2,8 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { a, useSpring } from 'react-spring';
 import { useMeasure } from '../Helpers';
 
-const ProjectItem = ({ clickHandler, data, active, index, nextHandler }) => {
+const ProjectItem = ({ clickHandler, data, active, index, nextHandler, pause }) => {
     const [activeState, _setActiveState] = useState(active);
+    const [pauseState, _setPauseState] = useState(pause);
+    const pauseStateRef = useRef(pause);
+    const setPauseState = (data) => {
+        pauseStateRef.current = data;
+        _setPauseState(data);
+
+    }
     const activeStateRef = useRef(active);
     const setActiveState = (data) => {
         activeStateRef.current = data;
@@ -20,6 +27,7 @@ const ProjectItem = ({ clickHandler, data, active, index, nextHandler }) => {
             activeStateRef.current && nextHandler(index);
             setActiveState(false);
         },
+        pause: pauseStateRef.current,
         config: {
             duration: 7200
         }
@@ -31,6 +39,14 @@ const ProjectItem = ({ clickHandler, data, active, index, nextHandler }) => {
     }, [active])
 
     useEffect(() => {
+        pauseState !== pause && setPauseState(pause);
+    }, [pause])
+
+    useEffect(() => {
+        setContent({pause: pauseState})
+    }, [pauseState])
+
+    useEffect(() => {
         setContent({
             from: { width: 0 },
             to: { width: activeState ? elWidth : 0 },
@@ -38,6 +54,7 @@ const ProjectItem = ({ clickHandler, data, active, index, nextHandler }) => {
                 activeStateRef.current && nextHandler(index);
                 setActiveState(false);
             },
+            pause: pauseStateRef.current,
             config: {
                 duration: 7200
             }

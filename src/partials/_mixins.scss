@@ -45,3 +45,7 @@
     display: flex;
     flex-direction: column;
 }
+
+@mixin margins {
+    margin: 2rem 1.5rem;
+}
