@@ -17,3 +17,11 @@ export function useMeasure() {
   }, [])
   return [{ ref }, bounds]
 }
+
+export function useViewer() {
+  const ref = useRef();
+  useEffect(()=> {
+    console.log(ref.current);
+  }, []);
+  return [{ref}]
+}

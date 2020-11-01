@@ -10,7 +10,7 @@ import html from '../../assets/icons/html.svg';
 import nodejs from '../../assets/icons/node.svg';
 import javascript from '../../assets/icons/javascript.svg';
 import { useTransition, a } from 'react-spring';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import {v4 as uuid} from 'uuid';
 
 const StackItem = ({ type, active }) => {
@@ -24,10 +24,10 @@ const StackItem = ({ type, active }) => {
     }
     );
 
-    useEffect( () => {
-        // (active) ? setStack([type]) : setStack([]);
-        active && console.log('render')
-    }, []);
+    // useEffect( () => {
+    //     // (active) ? setStack([type]) : setStack([]);
+    //     active && console.log('render')
+    // }, []);
 
     let stackIcons = {
         apache,

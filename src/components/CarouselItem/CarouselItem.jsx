@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import StackItem from '../StackItem/StackItem';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
-import { a, useTransition } from 'react-spring';
+import { a } from 'react-spring';
 import Timestamp from '../Timestamp/Timestamp';
 
 const Content = styled.div`
@@ -29,7 +29,7 @@ const Image = styled(a.div)`
 // Create item component
 const CarouselItem = ({ data, active }) => {
     const [activeState, setActiveState] = useState(active);
-    const { id, title, image, status, desc, stack, start, end, link, video } = data;
+    const { id, title, image, desc, stack, start, end } = data;
 
     let stackItems = stack.map((item) => <StackItem key={uuid()} type={item} active={activeState} />);
 
@@ -44,9 +44,11 @@ const CarouselItem = ({ data, active }) => {
                 <div className={'carousel__item-holder'}>
                     <h1>{title}</h1>
                     <div className='carousel__item-content'>
+                        <div className='carousel__item-info'>
                         <p>{desc}</p>
 
                         <span><Timestamp options={{ type: 'duration', case: 'title' }} start={start} end={end} /></span>
+                        </div>
 
                         <div className="stack">
 
@@ -56,7 +58,7 @@ const CarouselItem = ({ data, active }) => {
                     </div>
                 </div>
                 {/* className={'carousel__item-image'} */}
-                <Image style={{ backgroundImage: `url(${image[0]})` }} url={image[0]} light={(title === 'Blockr').toString()} />
+                <Image style={{ backgroundImage: `url(${image[0].img})` }} alt={image[0].alt} url={image[0]} light={(title === 'Blockr').toString()} />
             </Content>
         </Link>
     );

@@ -3,6 +3,22 @@ import projectData from '../../data/projects';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import ProjectCarousel from '../ProjectCarousel/ProjectCarousel';
 import './projects.scss';
+import styled from 'styled-components';
+import DeviceSize from '../../styles/mixins/DeviceSizes';
+
+const CarouselHolder = styled.div`
+    flex-direction: column;
+    ${DeviceSize.tablet(`
+        flex-direction: row;
+    `)}
+`;
+
+const CarouselMenu = styled.ul`
+    display: flex;
+    ${DeviceSize.tablet(`
+        flex-direction: column;
+    `)}
+`;
 
 const Projects = () => {
     const [activeIndex, setActiveIndex] = useState(0); // Project index passed here, during map (ProjectData.id === activeIndex)
@@ -34,12 +50,12 @@ const Projects = () => {
         <section className="carousel">
             <h1>Projects</h1>
             {/* Projects item will determine the currently active project logic */}
-            <div className="carousel__holder">
-                <ul className="carousel__menu">
+            <CarouselHolder className="carousel__holder">
+                <CarouselMenu className="carousel__menu">
                     {projectList}
-                </ul>
+                </CarouselMenu>
                 <ProjectCarousel data={projectData} current={activeIndex} clickHandler={activeViewHandler} pauseHandler={pauseHandler}  />
-            </div>
+            </CarouselHolder>
             {/* Project Viewer Component which gets the data from activeIndex state */}
         </section>
     )

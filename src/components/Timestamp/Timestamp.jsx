@@ -35,7 +35,6 @@ const Timestamp = ({ start, end, options }) => {
     const convertTime = (start, end) => {
 
         const caseCheck = (string, type) => {
-            string = string;
             if ('case' in options) {
                 if (options.case === 'upper') {
                     string = string.toUpperCase();
@@ -184,15 +183,15 @@ const Timestamp = ({ start, end, options }) => {
                         const longMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
                         const ordinal_suffix_of = (i) => {
-                            var j = i % 10,
-                                k = i % 100;
-                            if (j == 1 && k != 11) {
+                            let j = i % 10;
+                            let k = i % 100;
+                            if (j === 1 && k !== 11) {
                                 return i + "st";
                             }
-                            if (j == 2 && k != 12) {
+                            if (j === 2 && k !== 12) {
                                 return i + "nd";
                             }
-                            if (j == 3 && k != 13) {
+                            if (j === 3 && k !== 13) {
                                 return i + "rd";
                             }
                             return i + "th";
