@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { a, useSpring } from 'react-spring';
+import { useSpring } from 'react-spring';
 import { useMeasure } from '../Helpers';
+import {ProjectName, Icon, ProjectTitle, AccordionContainer, AccordionContent, AccordionIcon, AccordionHead, AccordionProgress, ProgressIndicator} from './projectItem';
 
 const ProjectItem = ({ clickHandler, data, active, index, nextHandler, pause }) => {
     const [activeState, _setActiveState] = useState(active);
@@ -64,23 +65,25 @@ const ProjectItem = ({ clickHandler, data, active, index, nextHandler, pause }) 
 
     return (
 
-        <li className={`accordion__container ${(activeState) && 'accordion__container--active'}`}>
+        <AccordionContainer active={activeState}>
             {/* Passing our indexed project that was click + 1 to set our carousel which starts at 1 rather than 0 */}
-            <div {...bind} className="accordion__head" onClick={() => clickHandler(index)}>
-                <div className="accordion__content">
-                    <h2>{data.title}</h2>
-                    <span className={`accordion__icon ${(activeState) && 'accordion__icon--active'}`}></span>
-                </div>
+            <AccordionHead {...bind} onClick={() => clickHandler(index)}>
+                <AccordionContent>
+                    <ProjectName>
+                        <Icon img={data.icon} />
+                        <ProjectTitle>{data.title}</ProjectTitle>
+                    </ProjectName>
+                    <AccordionIcon />
+                </AccordionContent>
                 {activeState &&
-                    <a.span
-                        className="accordion__progress"
+                    <AccordionProgress
                         style={{ ...contentProps }}
                     >
-                        <span className="accordion__progress-indicator"></span>
-                    </a.span>
+                        <ProgressIndicator/>
+                    </AccordionProgress>
                 }
-            </div>
-        </li>
+            </AccordionHead>
+        </AccordionContainer>
     );
 }
 

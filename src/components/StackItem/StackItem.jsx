@@ -9,9 +9,9 @@ import firebase from '../../assets/icons/firebase.svg';
 import html from '../../assets/icons/html.svg';
 import nodejs from '../../assets/icons/node.svg';
 import javascript from '../../assets/icons/javascript.svg';
-import { useTransition, a } from 'react-spring';
-// import { useEffect } from 'react';
-import {v4 as uuid} from 'uuid';
+import { useTransition } from 'react-spring';
+import { v4 as uuid } from 'uuid';
+import { StackItemDiv, StackIcon } from './stackItem';
 
 const StackItem = ({ type, active }) => {
     let noImage = ['express'];
@@ -20,14 +20,9 @@ const StackItem = ({ type, active }) => {
         from: { transform: 'translate3d(-50px,-50px,0px)' },
         enter: { transform: 'translate3d(0px,0px,0px)' },
         leave: { transform: 'translate3d(-50px,-50px,0px)' },
-        config: {duration: 500},
+        config: { duration: 500 },
     }
     );
-
-    // useEffect( () => {
-    //     // (active) ? setStack([type]) : setStack([]);
-    //     active && console.log('render')
-    // }, []);
 
     let stackIcons = {
         apache,
@@ -46,14 +41,14 @@ const StackItem = ({ type, active }) => {
 
     return (
         <>
-            {transition(( style, item ) => (
-                <a.div key={uuid()} style={style} className="stack-item" >
+            {transition((style, item) => (
+                <StackItemDiv key={uuid()} style={style} >
                     {(check === -1) ?
-                        (type === 'null') ? null : <img src={icon} alt={type} className="stack-item__icon" title={type} />
+                        (type === 'null') ? null : <StackIcon src={icon} alt={type} title={type} />
                         :
                         <span className="stack-item__title">{type}</span>
                     }
-                </a.div>
+                </StackItemDiv>
             ))}
         </>
     )

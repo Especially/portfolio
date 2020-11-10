@@ -1,156 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import projectData from '../../data/projects';
-import Timestamp from '../Timestamp/Timestamp';
-import styled from 'styled-components';
-import DeviceSize from '../../styles/mixins/DeviceSizes';
-// import flexCenter from '../../styles/mixins/Mixins';
-// import flexColumn from '../../styles/mixins/Mixins';
-import { useViewer } from '../Helpers';
-import StackItem from '../StackItem/StackItem';
 import { v4 as uuid } from 'uuid';
+import projectData from '../../data/projects';
+import StackItem from '../StackItem/StackItem';
+import Timestamp from '../Timestamp/Timestamp';
+import { DetailsSection, Desc, ExternalLink, Figure, Icon, Image, ImagePreview, ImageViewer, Info, InfoContain, InfoLabel, InfoText, Overlay, ProjectDesc, ProjectsNavIcon, ProjectsNavText, ProjectsLink, ProjectsNav, OverlayContainer, Preview, ProjectInfo, ProjectTitle, ProjectTitleLinks, ProjectTitleText, Stack, Video } from './projectDetails';
 
-const Figure = styled.figure`
-    margin: 0;
-    ${DeviceSize.tablet(`
-    margin: 1rem 2.5rem;
-    `)}
-    width: 100%;
-`;
-
-const Video = styled.video`
-    width: 100%;
-`;
-
-const Image = styled.img`
-    width: 25rem;
-    height: 100%;
-    backgroud-position: center center;
-    background-size: cover;
-`;
-
-const ProjectInfo = styled.div`
-display: flex;
-justify-content: space-between;
-//width: 20rem;
-`;
-
-const InfoContain = styled.div`
-display: flex;
-align-items: center;
-`;
-
-const InfoLabel = styled.h3`
-
-`;
-
-const InfoText = styled.span`
-display: flex;
-`;
-
-const Icon = styled.span`
-    background-image: url(${(props) => props.url});
-    background-position: center;
-    background-size: cover;
-    display: block;
-    height: 5rem;
-    width: 5rem;
-`;
-
-const Info = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
-
-const Preview = styled.div`
-    display: flex;
-    justify-content: center;
-    //align-items: center;
-`;
-
-const ImagePreview = styled.div`
-    background-image: url(${(props) => props.url});
-    background-position: center;
-    background-size: cover;
-    filter: blur(1px);
-    //border-radius: 5px;
-    margin: 0.5rem;
-    height: 10rem;
-    width: 10rem;
-    cursor: pointer;
-    transition: filter 0.5s ease-in-out;
-
-    &:hover {
-        position: relative;
-        filter: blur(0px);
-        &:before {
-            content: '';
-            position: absolute;
-            height: 100%:
-            width: 100%;
-            background-color: rgba(0,0,0,0.8);
-        }
-    }
-`;
-
-const Overlay = styled.div`
-    display: ${(props) => props.visible ? 'flex' : 'none'};
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1;
-    cursor: pointer;
-`;
-
-const OverlayContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: inherit;
-    height: inherit;
-    padding: 1rem;
-`;
-
-const ImageViewer = styled.img`
-    max-width: 100%;
-`;
-
-const Stack = styled.div`
-    display: flex;
-`;
 
 const ProjectDetails = ({ match }) => {
-    // const [projectID, setProjectID] = useState(match.params.id);
     const [projectInfo, setProjectInfo] = useState(null);
     const [overlayDisplay, setOverlayDisplay] = useState(false);
     const [currentImage, setCurrentImage] = useState('');
-    // const gallery = useRef();
-    const [bind] = useViewer();
+    const [prevProj, setPrevProj] = useState(null);
+    const [nextProj, setNextProj] = useState(null);
 
     useEffect(() => {
-        // setProjectID(match.params.id);
         getProject(match.params.id);
-        console.log(match.params.id)
     }, [match])
-
-    // useEffect(() => {
-    //     getProject(projectID);
-    //     console.log(projectID)
-    // }, [projectID]);
 
     const getProject = (id) => {
         let data = projectData.filter(item => item.id === id)[0];
+        let index = projectData.findIndex((item) => item.id === id);
+        let prev = (index - 1 !== -1) ? projectData[index - 1] : null;
+        let next = (index + 1 !== projectData.length) ? projectData[index + 1] : null;
+        prev ? setPrevProj({ id: prev.id, title: prev.title }) : setPrevProj(null);
+        next ? setNextProj({ id: next.id, title: next.title }) : setNextProj(null);
         (data) && setProjectInfo(data);
     }
 
     const viewImage = (data) => {
         setOverlayDisplay(true);
         setCurrentImage(data);
-        // Do something
     }
 
     const overlayHandle = () => {
@@ -161,17 +40,29 @@ const ProjectDetails = ({ match }) => {
         <>
             {projectInfo &&
 
-                <section>
-                    <Overlay visible={overlayDisplay} onClick={overlayHandle} >
-                        {overlayDisplay &&
+                <DetailsSection>
+                    {overlayDisplay &&
+                        <Overlay visible={overlayDisplay} onClick={overlayHandle} >
+
                             <OverlayContainer>
                                 <ImageViewer src={currentImage.img} alt={currentImage.alt} />
                             </OverlayContainer>
-                        }
-                    </Overlay>
-                    <h1>{projectInfo.title}</h1>
+
+                        </Overlay>
+                    }
+                    <ProjectTitle>
+                        <ProjectTitleText>{projectInfo.title}</ProjectTitleText>
+                        <ProjectTitleLinks>
+                            <ExternalLink github href={projectInfo.repo} target="_blank" rel="noopener noreferrer" title="Github"></ExternalLink>
+                            {(projectInfo.link !== '') &&
+                                <ExternalLink href={projectInfo.link} target="_blank" rel="noopener noreferrer"></ExternalLink>}
+                        </ProjectTitleLinks>
+                    </ProjectTitle>
+                    
                     <ProjectInfo>
+
                         <Info>
+
                             <InfoContain>
                                 <InfoLabel>Duration: </InfoLabel>
                                 <InfoText>
@@ -187,53 +78,71 @@ const ProjectDetails = ({ match }) => {
                                     />
                                 </InfoText>
                             </InfoContain>
+
                             <InfoContain>
                                 <InfoLabel>Status: </InfoLabel>
-                                <InfoText>{(projectInfo.status === 0) ? 'Under Construction' :  'Completed'}</InfoText>
-                            </InfoContain>
-                            <InfoContain>
-                                <InfoLabel>Links: </InfoLabel>
-                                    <InfoText>
-                                        <a href={projectInfo.repo} target="_blank" rel="noopener noreferrer">GitHub</a>|
-                                        { (projectInfo.link !== '') && <a href={projectInfo.link} target="_blank" rel="noopener noreferrer">Check it Out!</a>}</InfoText>
+                                <InfoText>{(projectInfo.status === 0) ? 'Under Construction' : 'Completed'}</InfoText>
                             </InfoContain>
                         </Info>
+
                         <Info>
                             <Icon url={projectInfo.icon} />
                         </Info>
+
                     </ProjectInfo>
 
 
-                    {projectInfo.video ?
-                        <Figure>
+
+                    <Figure>
+                        {projectInfo.video ?
                             <Video poster={projectInfo.image[0].img} controls>
                                 <source src={projectInfo.video} type="video/mp4" />
                             </Video>
-                        </Figure>
-                        :
-                        <Image src={projectInfo.image[0].img} alt={projectInfo.image[0].alt} />
-                    }
+                            :
+                            <Image src={projectInfo.image[0].img} alt={projectInfo.image[0].alt} onClick={() => viewImage({ img: projectInfo.image[0].img, alt: projectInfo.image[0].alt })} />
+                        }
+                    </Figure>
 
-                    {/* Main image goes here, unless there's a video, centered with additional padding like an article */}
-                    {/* Duration directly below image on the left */}
-                    {/* Will we include another auto-play carousel? Should the video be the first item which they can play or should there be a button */}
-                    {/* Thorough description goes here, with images in-between */}
-                    <div {...bind}>
+                    <ProjectDesc>
                         {projectInfo.details.map((paragraph, i) => {
                             let images = projectInfo.image.filter(image => image.index === i);
-                            // console.log(i, images);
-                            images = images.map(image => {
-                                return <ImagePreview url={image.img} onClick={() => viewImage({img: image.img, alt: image.alt})} />
-                                // return <img src={image.img} alt={image.alt} />
+                            images = images.map((image) => {
+                                return <ImagePreview key={uuid()} url={image.img} onClick={() => viewImage({ img: image.img, alt: image.alt })} />
                             })
-                            return <><p>{paragraph}</p><Preview>{images}</Preview></>;
+                            return <><Desc key={uuid()}>{paragraph}</Desc><Preview>{images}</Preview></>;
                         })}
-                        {console.log(bind)}
-                    </div>
+                    </ProjectDesc>
+
                     <Stack>
-                    {projectInfo.stack.map((item) => <StackItem key={uuid()} type={item} active='true' />)}
+                        {projectInfo.stack.map((item) => <StackItem key={uuid()} type={item} active='true' />)}
                     </Stack>
-                </section>
+
+                    <InfoContain>
+                        <InfoLabel>Links: </InfoLabel>
+                        <InfoText>
+                            <ExternalLink github href={projectInfo.repo} target="_blank" rel="noopener noreferrer" title="GitHub"></ExternalLink>
+                            {(projectInfo.link !== '') &&
+                                <ExternalLink href={projectInfo.link} target="_blank" rel="noopener noreferrer" title="External Link"></ExternalLink>}
+                        </InfoText>
+                    </InfoContain>
+
+                    <ProjectsNav prev={prevProj && true} next={nextProj && true}>
+                        {prevProj &&
+                            <ProjectsLink to={`/project/${prevProj.id}`}>
+                                <ProjectsNavIcon className='prev' prev/>
+                                <ProjectsNavText>{prevProj.title}</ProjectsNavText>
+                            </ProjectsLink>
+                            }
+                        {nextProj &&
+                            <ProjectsLink to={`/project/${nextProj.id}`}>
+                                <ProjectsNavText next>
+                                    {nextProj.title}
+                                </ProjectsNavText>
+                                <ProjectsNavIcon  className='next' next/>
+                            </ProjectsLink>
+                            }
+                    </ProjectsNav>
+                </DetailsSection>
             }
         </>
     )

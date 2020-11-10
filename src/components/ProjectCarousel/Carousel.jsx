@@ -58,9 +58,9 @@ export default function SliderContainer(props) {
           <Slider {...props} itemWidth={elWidth}>
             {props.children}
           </Slider>
-        ) : (
-          'null'
-        )}
+        ) : 
+          null
+        }
       </div>
     </>
   )

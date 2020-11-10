@@ -4,11 +4,12 @@ const size = {
     mobileL: '425px',
     tablet: '768px',
     laptop: '1024px',
+    laptopA: '1280px',
     laptopL: '1440px',
     desktop: '2560px'
 }
 
-const deviceSize = {
+const DeviceSize = {
     mobileS: (data,type = 'min') => {
         return(`
         @media (${type}-width: ${size.mobileS}) {
@@ -34,6 +35,12 @@ const deviceSize = {
         }`)
     },
     laptop: (data,type = 'min') => {
+        return(`
+        @media (${type}-width: ${size.laptop}) {
+            ${data}
+        }`)
+    },
+    laptopA: (data,type = 'min') => {
         return(`
         @media (${type}-width: ${size.laptop}) {
             ${data}
@@ -65,4 +72,4 @@ const deviceSize = {
     },
 };
 
-export default deviceSize;
+export default DeviceSize;

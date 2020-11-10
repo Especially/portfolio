@@ -2,19 +2,29 @@ import React, {useState} from 'react';
 import projectData from '../../data/projects';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import ProjectCarousel from '../ProjectCarousel/ProjectCarousel';
-import './projects.scss';
 import styled from 'styled-components';
 import DeviceSize from '../../styles/mixins/DeviceSizes';
+import {Section} from '../../styles/globalStyles';
 
 const CarouselHolder = styled.div`
+    display: flex;
+    height: 500px;
     flex-direction: column;
-    ${DeviceSize.tablet(`
+    margin: 3rem 0;
+    color: ${({ theme }) => theme.text};
+    ${({theme}) => DeviceSize.tablet(`
         flex-direction: row;
+        box-shadow: 0 0 11px 1px ${theme.carouselShadow};
     `)}
 `;
 
 const CarouselMenu = styled.ul`
     display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: ${({theme}) => theme.carouselBg};
+    overflow: hidden;
     ${DeviceSize.tablet(`
         flex-direction: column;
     `)}
@@ -47,7 +57,7 @@ const Projects = () => {
     let projectList = projectData.map((project, i) => <ProjectItem key={project.id} pause={pauseState} nextHandler={nextProjectHandler} clickHandler={currentIndex} data={project} index={i} active={i === activeIndex} />)
 
     return (
-        <section className="carousel">
+        <Section>
             <h1>Projects</h1>
             {/* Projects item will determine the currently active project logic */}
             <CarouselHolder className="carousel__holder">
@@ -57,7 +67,7 @@ const Projects = () => {
                 <ProjectCarousel data={projectData} current={activeIndex} clickHandler={activeViewHandler} pauseHandler={pauseHandler}  />
             </CarouselHolder>
             {/* Project Viewer Component which gets the data from activeIndex state */}
-        </section>
+        </Section>
     )
 }
 

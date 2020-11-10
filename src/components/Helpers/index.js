@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-// export function usePrevious(value) {
-//   const ref = useRef()
-//   useEffect(() => void (ref.current = value), [value])
-//   return ref.current
-// }
-
 export function useMeasure() {
   const ref = useRef()
   const [bounds, set] = useState({ left: 0, top: 0, width: 0, height: 0 })
@@ -18,10 +12,21 @@ export function useMeasure() {
   return [{ ref }, bounds]
 }
 
-export function useViewer() {
-  const ref = useRef();
-  useEffect(()=> {
-    console.log(ref.current);
-  }, []);
-  return [{ref}]
-}
+export const useDarkMode = () => {
+    const [theme, setTheme] = useState('light');
+
+    const setMode = mode => {
+        window.localStorage.setItem('theme', mode)
+        setTheme(mode)
+    };
+
+    const themeToggler = () => {
+        theme === 'light' ? setMode('dark') : setMode('light')
+    };
+
+    useEffect(() => {
+        const localTheme = window.localStorage.getItem('theme');
+        localTheme && setTheme(localTheme)
+    }, []);
+    return [theme, themeToggler]
+};

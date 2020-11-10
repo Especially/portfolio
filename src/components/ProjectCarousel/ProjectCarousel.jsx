@@ -6,17 +6,15 @@ import DeviceSize from '../../styles/mixins/DeviceSizes';
 
 const CarouselContainer = styled.div`
     height: 420px;
+    width: 100%;
+    position: relative;
     ${DeviceSize.tablet(`
         height: auto;
     `)}
-
 `;
 
-
-// Create item component
 const ProjectCarousel = ({ data, current, clickHandler, pauseHandler }) => {
     const [activeIndex, setActiveIndex] = useState((current -1));
-// sort data
 
     useEffect(() => {
         setActiveIndex(current);
