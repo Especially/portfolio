@@ -11,7 +11,7 @@ import nodejs from '../../assets/icons/node.svg';
 import javascript from '../../assets/icons/javascript.svg';
 import { useTransition } from 'react-spring';
 import { v4 as uuid } from 'uuid';
-import { StackItemDiv, StackIcon } from './stackItem';
+import { StackItemDiv, StackIcon } from './s-stackItem';
 
 const StackItem = ({ type, active }) => {
     let noImage = ['express'];

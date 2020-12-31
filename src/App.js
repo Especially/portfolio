@@ -1,12 +1,12 @@
 import React from 'react';
 import Main from './pages/Main/Main';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ProjectDetails from './components/ProjectDetails/ProjectDetails';
+import ProjectDetails from './components/ProjectDetails/s-projectDetails';
 import Toggle from "./components/Toggler/Toggler"
 import  {useDarkMode} from "./components/Helpers/";
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/globalStyles';
-import { lightTheme, darkTheme } from './styles/Theme'
+import { lightTheme, darkTheme } from './styles/Theme';
 
 function App() {
   const [theme, themeToggler] = useDarkMode();

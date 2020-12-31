@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import StackItem from '../StackItem/StackItem';
-import { StackContainer } from '../StackItem/stackItem';
+import { StackContainer } from '../StackItem/s-stackItem';
 import { v4 as uuid } from 'uuid';
 import Timestamp from '../Timestamp/Timestamp';
-import { CarouselContainer, CarouselDesc, CarouselTitle, CarouselHolder, CarouselInfo, CarouselContent, CarouselImage } from './carouselItem';
+import { CarouselContainer, CarouselDesc, CarouselTitle, CarouselHolder, CarouselInfo, CarouselContent, CarouselImage } from './s-carouselItem';
 
 const CarouselItem = ({ data, active }) => {
     const [activeState, setActiveState] = useState(active);

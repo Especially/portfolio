@@ -1,6 +1,6 @@
 import React from 'react';
 import {Section, Paragraph} from '../../styles/globalStyles';
-import {Title, Highlight} from './about';
+import {Title, Highlight} from './s-about';
 
 const About = () => {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import About from '../../components/About/About';
 import Projects from '../../components/Projects/Projects';
-import { Hero, HeroDesc, HeroVideo, HeroIcon, HeroSocials, HeroAvatar, HeroLink, HeroContent, HeroTitle } from './main';
+import { Hero, HeroDesc, HeroVideo, HeroIcon, HeroSocials, HeroAvatar, HeroLink, HeroContent, HeroTitle } from './s-main';
 import heroVideo from '../../assets/images/videos/hero.mp4';
 
 function Main() {

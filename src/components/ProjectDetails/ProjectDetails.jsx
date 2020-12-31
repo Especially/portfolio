@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import projectData from '../../data/projects';
 import StackItem from '../StackItem/StackItem';
 import Timestamp from '../Timestamp/Timestamp';
-import { DetailsSection, Desc, ExternalLink, Figure, Icon, Image, ImagePreview, ImageViewer, Info, InfoContain, InfoLabel, InfoText, Overlay, ProjectDesc, ProjectsNavIcon, ProjectsNavText, ProjectsLink, ProjectsNav, OverlayContainer, Preview, ProjectInfo, ProjectTitle, ProjectTitleLinks, ProjectTitleText, Stack, Video } from './projectDetails';
+import { DetailsSection, Desc, ExternalLink, Figure, Icon, Image, ImagePreview, ImageViewer, Info, InfoContain, InfoLabel, InfoText, Overlay, ProjectDesc, ProjectsNavIcon, ProjectsNavText, ProjectsLink, ProjectsNav, OverlayContainer, Preview, ProjectInfo, ProjectTitle, ProjectTitleLinks, ProjectTitleText, Stack, Video } from './s-projectDetails';
 
 
 const ProjectDetails = ({ match }) => {

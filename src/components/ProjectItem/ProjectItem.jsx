@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
 import { useMeasure } from '../Helpers';
-import {ProjectName, Icon, ProjectTitle, AccordionContainer, AccordionContent, AccordionIcon, AccordionHead, AccordionProgress, ProgressIndicator} from './projectItem';
+import {ProjectName, Icon, ProjectTitle, AccordionContainer, AccordionContent, AccordionIcon, AccordionHead, AccordionProgress, ProgressIndicator} from './s-projectItem';
 
 const ProjectItem = ({ clickHandler, data, active, index, nextHandler, pause }) => {
     const [activeState, _setActiveState] = useState(active);
