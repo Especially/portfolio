@@ -47,7 +47,7 @@ const projectData = [
         "start": new Date('2020-06-08').getTime(),
         "end": new Date('2020-06-23').getTime(),
         "date":"June 2020",
-        "link":"https://amuze-me.herokuapp.com/",
+        "link":"https://amuze.jevel.io/",
         "repo":"https://github.com/Especially/amuzeme",
         "video": amuzeMeVideo
     },
