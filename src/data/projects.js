@@ -1,5 +1,6 @@
 import { v4 as uuid_v4 } from "uuid";
-const amuzeMeIcon = require("../assets/images/projects/amuze-me/icon.svg");
+import AmuzeMeIcon from "../assets/images/projects/amuze-me/icon.svg";
+
 const amuzeMeVideo = require("../assets/images/projects/amuze-me/video.mp4");
 const amuzeMeImg1 = require("../assets/images/projects/amuze-me/main.png");
 const amuzeMeImg2 = require("../assets/images/projects/amuze-me/img1.png");
@@ -28,7 +29,7 @@ const projectData = [
     id: uuid_v4(),
     slug: "amuze-me",
     title: "Amuze Me",
-    icon: amuzeMeIcon,
+    icon: AmuzeMeIcon,
     image: [
       { img: amuzeMeImg1, alt: "Amuze Me landing page" },
       {
