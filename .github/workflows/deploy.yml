@@ -5,4 +5,10 @@ jobs:
   Deploy-to-Production:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19"
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: npm i --omit-dev
+      - run: npm run build
