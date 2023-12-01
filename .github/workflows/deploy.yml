@@ -10,5 +10,5 @@ jobs:
         with:
           node-version: "19"
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: npm i --omit-dev
+      - run: npm ci --production
       - run: npm run build
