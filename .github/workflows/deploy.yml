@@ -11,4 +11,9 @@ jobs:
           node-version: "19"
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: npm ci --production
-      - run: npm run build
+      - name: Build
+        env:
+          # GitHub Actions sets CI to true autmatically, which means that both errors and warnings will result in a failed build. Setting the CI Env var to false ammends this.
+          # REF: https://stackoverflow.com/questions/63445967/githubs-action-is-not-building-react-application
+          CI: false
+        run: npm run build
