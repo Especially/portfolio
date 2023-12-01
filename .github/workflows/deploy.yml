@@ -1,0 +1,8 @@
+name: Deploy to Production
+run-name: ${{ github.actor }} pushed new changes to ${{ github.ref }} 🚀
+on: [push]
+jobs:
+  Deploy-to-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
