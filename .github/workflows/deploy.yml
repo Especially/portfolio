@@ -22,7 +22,8 @@ jobs:
           # GitHub Actions sets CI to true autmatically, which means that both errors and warnings will result in a failed build. Setting the CI Env var to false ammends this.
           # REF: https://stackoverflow.com/questions/63445967/githubs-action-is-not-building-react-application
           CI: false
-        run: npm run build
+        run: npm run  build
+      - name: Test Output
         run: ls -la
       # - name: 🚀 Deploy To Production
       # - uses: burnett01/rsync-deployments@6.0.0
