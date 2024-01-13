@@ -190,10 +190,10 @@ const ProjectDetails = () => {
                 );
               });
               return (
-                <>
-                  <Desc key={uuid()}>{paragraph}</Desc>
+                <React.Fragment key={paragraph}>
+                  <Desc>{paragraph}</Desc>
                   <Preview>{images}</Preview>
-                </>
+                </React.Fragment>
               );
             })}
           </ProjectDesc>

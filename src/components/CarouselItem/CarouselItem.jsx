@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import StackItem from "../StackItem/StackItem";
 import { StackContainer } from "../StackItem/s-stackItem";
-import { v4 as uuid } from "uuid";
 import Timestamp from "../Timestamp/Timestamp";
 import {
   CarouselContainer,

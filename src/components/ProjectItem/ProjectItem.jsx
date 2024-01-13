@@ -79,7 +79,11 @@ const ProjectItem = ({
   return (
     <AccordionContainer active={activeState}>
       {/* Passing our indexed project that was click + 1 to set our carousel which starts at 1 rather than 0 */}
-      <AccordionHead {...bind} onClick={() => clickHandler(index)}>
+      <AccordionHead
+        {...bind}
+        onClick={() => clickHandler(index)}
+        aria-label={`Read more about the project ${data.title}`}
+      >
         <AccordionContent>
           <ProjectName>
             <Icon img={data.icon} />
