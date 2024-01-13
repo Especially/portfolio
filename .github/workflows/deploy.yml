@@ -1,6 +1,9 @@
 name: Deploy to Production
 run-name: ${{ github.actor }} pushed new changes to ${{ github.ref }} 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   Deploy-to-Production:
     runs-on: ubuntu-latest
@@ -9,11 +12,24 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "19"
+          cache: npm
+          cache-dependency-path: npm-shrinkwrap.json
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: npm ci --production
-      - name: Build
+      - name: ⬇️ Install Package Dependencies
+        run: npm ci --omit-dev
+      - name: 🛠️ Build Application
         env:
           # GitHub Actions sets CI to true autmatically, which means that both errors and warnings will result in a failed build. Setting the CI Env var to false ammends this.
           # REF: https://stackoverflow.com/questions/63445967/githubs-action-is-not-building-react-application
           CI: false
         run: npm run build
+        run: ls -la
+      # - name: 🚀 Deploy To Production
+      # - uses: burnett01/rsync-deployments@6.0.0
+      #   with:
+      #     switches: -avzr --delete
+      #     path: build/
+      #     remote_path: ${{ vars.DEPLOY_PATH }}
+      #     remote_host: ${{ secrets.DEPLOY_HOST }}
+      #     remote_user: ${{ secrets.DEPLOY_USER }}
+      #     remote_key: ${{ secrets.DEPLOY_KEY }}
