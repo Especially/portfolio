@@ -1,5 +1,5 @@
-import React from 'react'
-import { func, string } from 'prop-types';
+import React from "react";
+import { func, string } from "prop-types";
 import styled from "styled-components";
 
 const DarkModeSlider = styled.span`
@@ -10,8 +10,8 @@ const DarkModeSlider = styled.span`
   right: 0;
   bottom: 0;
   background-color: ${({ theme }) => theme.body};
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 34px;
 
   &:before {
@@ -22,11 +22,11 @@ const DarkModeSlider = styled.span`
     left: 4px;
     bottom: 4px;
     background-color: ${({ theme }) => theme.highlight};
-    background-image: url(${({theme}) => theme.icon});
+    background-image: url(${({ theme }) => theme.icon});
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 1rem;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 50%;
   }
 `;
@@ -47,23 +47,27 @@ const DarkModeSwitch = styled.label`
       background-color: ${({ theme }) => theme.body};
     }
     &:focus + ${DarkModeSlider} {
-      box-shadow: 0 0 1px #2196F3;
+      box-shadow: 0 0 1px #2196f3;
     }
     &:checked + ${DarkModeSlider}:before {
       transform: translateX(26px);
     }
   }
 `;
-const Toggle = ({theme,  toggleTheme }) => {
-    return (
-        <DarkModeSwitch>
-          <input type='checkbox' onClick={toggleTheme} checked={theme === 'dark'} />
-          <DarkModeSlider />
-        </DarkModeSwitch>
-    );
+const Toggle = ({ theme, toggleTheme }) => {
+  return (
+    <DarkModeSwitch>
+      <input
+        type="checkbox"
+        onChange={toggleTheme}
+        checked={theme === "dark"}
+      />
+      <DarkModeSlider />
+    </DarkModeSwitch>
+  );
 };
 Toggle.propTypes = {
-    theme: string.isRequired,
-    toggleTheme: func.isRequired,
-}
+  theme: string.isRequired,
+  toggleTheme: func.isRequired,
+};
 export default Toggle;

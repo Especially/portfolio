@@ -3,6 +3,14 @@ import DeviceSize from "../../styles/mixins/DeviceSizes";
 import { a } from "react-spring";
 import { glideRightRotate } from "../../styles/mixins/animations";
 
+const DarkTheme = css`
+  font-color: #fff;
+`;
+
+const LightTheme = css`
+  font-color: #000;
+`;
+
 export const ProjectName = styled.div`
   display: flex;
   align-items: center;
@@ -17,16 +25,20 @@ export const Icon = styled.span`
   height: 40px;
   margin: 0.5rem;
   ${DeviceSize.tablet(`
-        width: 36px;
-        height: 36px;
+        width: 28px;
+        height: 28px;
     `)}
 `;
 
-export const ProjectTitle = styled.h3`
+export const ProjectTitle = styled.span`
+  font-weight: bold;
+  font-size: 1rem;
   display: none;
+  color: ${({ theme }) => theme.text};
   ${DeviceSize.tablet(`
     display: flex;
-    `)}
+    flex-grow: 1;
+    `)};
 `;
 
 export const AccordionIcon = styled.span`
@@ -72,6 +84,7 @@ export const AccordionContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   ${DeviceSize.mobileM(
     `
         padding: 0.25rem 0.15rem;
@@ -79,7 +92,7 @@ export const AccordionContent = styled.div`
     "max"
   )}
   ${DeviceSize.mobileM(`
-        padding: 0.5rem 1.25rem;
+        padding: 0.25rem 1rem;
     `)}
 `;
 
@@ -93,6 +106,9 @@ export const AccordionHead = styled.button`
   cursor: pointer;
   border-bottom: 1px solid ${({ theme }) => theme.accent};
   position: relative;
+  padding: 0;
+  width: 100%;
+  text-align: left;
 `;
 
 export const AccordionProgress = styled(a.span)`
