@@ -88,7 +88,7 @@ const ProjectDetails = () => {
   return (
     <>
       {projectInfo && (
-        <DetailsSection>
+        <DetailsSection id={`details-${params.id}`}>
           {overlayDisplay && (
             <Overlay visible={overlayDisplay} onClick={overlayHandle}>
               <OverlayContainer>

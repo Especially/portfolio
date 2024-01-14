@@ -25,8 +25,23 @@ const CarouselItem = ({ data, active }) => {
     setActiveState(active);
   }, [active]);
 
+  const onClickHandler = () => {
+    setTimeout(() => {
+      const detailsSection = document.getElementById(`details-${slug}`);
+      if (detailsSection) {
+        const leftOffset = detailsSection.offsetLeft;
+        const topOffset = detailsSection.offsetTop;
+        window.scrollTo({
+          behavior: "smooth",
+          top: topOffset,
+          left: leftOffset,
+        });
+      }
+    }, 100);
+  };
+
   return (
-    <Link to={`/project/${slug}`}>
+    <Link to={`/project/${slug}`} onClick={onClickHandler}>
       <CarouselContainer>
         <CarouselHolder>
           <CarouselTitle>{title}</CarouselTitle>

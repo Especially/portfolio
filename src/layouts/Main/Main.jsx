@@ -19,7 +19,7 @@ function Main() {
   return (
     <>
       <Hero>
-        <HeroVideo autoPlay loop muted playsinline>
+        <HeroVideo autoPlay loop muted playsInline>
           <source src={heroVideo} type="video/mp4" />
         </HeroVideo>
         <HeroContent>
