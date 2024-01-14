@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useDrag } from "react-use-gesture";
 import { useSprings, a } from "react-spring";
 import debounce from "lodash.debounce";
@@ -55,26 +56,6 @@ const styles = {
   },
 };
 
-export default function SliderContainer(props) {
-  const [bind, { width: elWidth }] = useMeasure();
-
-  return (
-    <>
-      <div
-        {...bind}
-        style={{ height: "100%", position: "relative" }}
-        className="carousel__holder"
-      >
-        {elWidth !== 0 ? (
-          <Slider {...props} itemWidth={elWidth}>
-            {props.children}
-          </Slider>
-        ) : null}
-      </div>
-    </>
-  );
-}
-
 /**
  * Calculates a spring-physics driven infinite slider
  *
@@ -97,13 +78,15 @@ function Slider({
   current,
 }) {
   if (items.length <= 2)
-    console.warn(
+    throw new Error(
       "The slider doesn't handle two or less items very well, please use it with an array of at least 3 items in length"
     );
+
   const windowWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+    window?.innerWidth ||
+    document?.documentElement?.clientWidth ||
+    document?.body?.clientWidth;
+
   let width = itemWidth === "full" ? windowWidth : Math.ceil(itemWidth);
   const idx = useCallback(
     (x, l = items.length) => (x < 0 ? x + l : x) % l,
@@ -119,23 +102,8 @@ function Slider({
     x: (i < items.length - 1 ? i : -1) * width + offset,
   }));
   const prev = useRef([0, 1]);
-  const index = useRef(0);
+  const index = useRef(current);
   const [active, setActive] = useState(current + 1);
-
-  useEffect(() => {
-    activeHandler(active - 1);
-  }, [active]);
-
-  useEffect(() => {
-    setActive(current + 1);
-    // Update from propagated current state using debounce
-    debounceTransition(current - index.current);
-  }, [current]);
-
-  useEffect(() => {
-    // Re-run spring on resize (change in item width)
-    runSprings(0, index.current, true, -0, () => {}, -0);
-  }, [itemWidth]);
 
   const runSprings = useCallback(
     (y, vy, down, xDir, cancel, xMove) => {
@@ -184,6 +152,31 @@ function Slider({
     [idx, getPos, width, visible, set, items.length]
   );
 
+  const buttons = useCallback(
+    (next) =>
+      debounce(() => {
+        index.current += next;
+        runSprings(0, next, true, -0, () => {}, -0);
+      }, 10),
+    [runSprings, index]
+  );
+
+  useEffect(() => {
+    activeHandler(active - 1);
+  }, [active, activeHandler]);
+
+  useEffect(() => {
+    setActive(current + 1);
+    index.current = current;
+    // Update from propagated current state using debounce
+    buttons(current - index.current);
+  }, [current, buttons]);
+
+  useEffect(() => {
+    // Re-run spring on resize (change in item width)
+    runSprings(0, index.current, true, -0, () => {}, -0);
+  }, [itemWidth, runSprings, current]);
+
   const bind = useDrag(
     ({
       offset: [x],
@@ -196,13 +189,6 @@ function Slider({
       vx && runSprings(-x, -vx, down, xDir, cancel, xMove);
     }
   );
-
-  const buttons = (next) => {
-    index.current += next;
-    runSprings(0, next, true, -0, () => {}, -0);
-  };
-
-  const debounceTransition = debounce(buttons, 10);
 
   return (
     <>
@@ -223,6 +209,33 @@ function Slider({
             className="carousel__item"
           />
         ))}
+      </div>
+    </>
+  );
+}
+
+Slider.defaultProps = {
+  current: 0,
+};
+
+Slider.propTypes = {
+  current: PropTypes.number,
+};
+export default function SliderContainer(props) {
+  const [bind, { width: elWidth }] = useMeasure();
+
+  return (
+    <>
+      <div
+        {...bind}
+        style={{ height: "100%", position: "relative" }}
+        className="carousel__holder"
+      >
+        {elWidth !== 0 ? (
+          <Slider {...props} itemWidth={elWidth}>
+            {props.children}
+          </Slider>
+        ) : null}
       </div>
     </>
   );

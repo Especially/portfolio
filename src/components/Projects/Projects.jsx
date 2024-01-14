@@ -37,15 +37,16 @@ const Projects = () => {
 
   const currentIndex = useCallback(
     (i) => {
+      console.log("Changing index", activeIndex !== i, i, activeIndex);
       // If we're clicking on the same active project, set to null to collapse all
       activeIndex !== i && setActiveIndex(i);
     },
     [activeIndex]
   );
 
-  const activeViewHandler = (item) => {
+  const activeViewHandler = useCallback((item) => {
     setActiveIndex(item);
-  };
+  }, []);
 
   const nextProjectHandler = (curr) => {
     const total = projectData.length;
