@@ -3,14 +3,6 @@ import DeviceSize from "../../styles/mixins/DeviceSizes";
 import { a } from "react-spring";
 import { glideRightRotate } from "../../styles/mixins/animations";
 
-const DarkTheme = css`
-  font-color: #fff;
-`;
-
-const LightTheme = css`
-  font-color: #000;
-`;
-
 export const ProjectName = styled.div`
   display: flex;
   align-items: center;
